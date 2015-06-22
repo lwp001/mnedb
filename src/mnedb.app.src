@@ -1,0 +1,10 @@
+{application, mnedb,
+	[
+	 {description, "mnesia simple api"},
+	 {vsn, "1.0"},
+	 {applications, [kernel, stdlib, mnesia]},
+	 {modules, [mnedb_app, mnedb_sup, mnedb_srv]},
+	 {registered, [mnedb_sup, mnedb_srv]},
+	 {mod, {mnedb_app, []}}
+	]
+}.
