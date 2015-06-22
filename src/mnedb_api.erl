@@ -32,7 +32,8 @@
 		]).
 
 -export([
-		 select/1
+		 select/1,
+		 select_row/1
 		]).
 
 -export([
@@ -201,6 +202,15 @@ select(Qlcq) ->
 		  end,
 	{atomic, Res} = mnesia:transaction(Fun),
 	Res.
+
+%% Qlcq: qlc:q() result row
+select_row(Qlcq) ->
+	case select(Qlcq) of
+		[Row|_] ->
+			Row;
+		[] ->
+			null
+	end.
 %%%%%%%%%%%%%%%%%%%% select %%%%%%%%%%%%%%%%%%%%
 
 
