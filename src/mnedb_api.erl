@@ -33,7 +33,9 @@
 
 -export([
 		 select/1,
-		 select_row/1
+		 select_row/1,
+	 	 select_count/1,
+		 limit/3
 		]).
 
 -export([
