@@ -211,6 +211,27 @@ select_row(Qlcq) ->
 		[] ->
 			null
 	end.
+%%   select count(*) from table_name
+%% 使用 mnesia:table_info
+select_count(Table)->
+	F = fun() ->
+		mnesia:table_info(Table, size)
+	end,
+	mnesia:transaction(F).
+
+
+limit(Qlcq,Start,Limit)->
+  Cursor= mnesia:activity(async_dirty,  
+            fun()->qlc:cursor(Qlcq,[]) end,  
+            mnesia_frag).
+  % qlc:delete_cursor(Cursor). 
+
+get_next(Cursor,Start,Limit)->
+    Get=fun()->
+        qlc:next_answers(Cursor,Limit)
+	end,
+    mnesia:activity(async_dirty,Get,mnesia_frag).
+
 %%%%%%%%%%%%%%%%%%%% select %%%%%%%%%%%%%%%%%%%%
 
 
